@@ -13,9 +13,11 @@
             <v-card
               slot-scope="{}"
               class="d-flex fill-height align-center">
-                <!-- height="320" -->
               <v-card class="fill-height">
-                <v-img
+                <v-img v-if="article.urlToImage === null"
+                  :src="src"
+                  aspect-ratio="2"/>
+                <v-img v-else
                   :src="article.urlToImage"
                   aspect-ratio="2"/>
 
@@ -49,6 +51,9 @@ export default {
       type: Array,
       default: []
     }
+  },
+  data() {
+    return {src: require('@/assets/no-image.png')}
   }
 };
 </script>
