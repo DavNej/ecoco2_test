@@ -1,11 +1,11 @@
 <template>
-  <v-container>
+  <v-container class="pb-0">
     <v-layout wrap align-center justify-center>
       <v-flex xs12 sm6 d-flex>
         <v-select
           :items="sourcesNames"
           label="Selectionner une source"
-          v-model="value"
+          v-model="selectedSource"
         />
       </v-flex>
     </v-layout>
@@ -18,11 +18,12 @@ import axios from "axios";
 import { apiKey } from "@/plugins/credentials";
 
 export default {
+  name: 'FormSelect',
   data() {
     return {
       sourcesNames: [],
       sourcesIds: [],
-      value: ""
+      selectedSource: ""
     };
   },
   created: function() {
@@ -40,24 +41,28 @@ export default {
       })
       .catch(err => console.error(err));
   },
-  updated: function() {
-    if (!this.value) {
-      return;
-    }
-    let idx = this.sourcesNames.indexOf(this.value);
-    let selectedSource = this.sourcesIds[idx];
+  watch: {
+    selectedSource: function() {
+      let idx = this.sourcesNames.indexOf(this.selectedSource);
+      let selectedSourceId = this.sourcesIds[idx];
 
-    axios
-      .get("https://newsapi.org/v2/top-headlines", {
-        params: {
-          apiKey: apiKey,
-          sources: selectedSource
-        }
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => console.error(err));
+      axios
+        .get("https://newsapi.org/v2/top-headlines", {
+          params: {
+            apiKey: apiKey,
+            sources: selectedSourceId
+          }
+        })
+        .then(res => {
+          if (res.status === 200) {
+            this.$emit('sourceIsSelected', res.data);
+          } else {
+            alert('Une erreur s\'est produite, veuillez réessayer')
+            console.error(res)
+          }
+        })
+        .catch(err => console.error(err));
+    }
   }
 };
 </script>
