@@ -11,21 +11,21 @@
           lg3>
           <v-item>
             <v-card
-              slot-scope="{ active, toggle }"
-              class="d-flex align-center">
-              <v-card>
-                  <!-- height="320" -->
+              slot-scope="{}"
+              class="d-flex fill-height align-center">
+                <!-- height="320" -->
+              <v-card class="fill-height">
                 <v-img
                   :src="article.urlToImage"
                   aspect-ratio="2"/>
 
-                <v-card-title primary-title>
+                <v-card-title primary-title class="cus__clear-bottom">
                   <div>
                     <h3 class="headline mb-0" v-html="article.title"></h3>
                     <div v-html="article.description"></div>
                   </div>
                 </v-card-title>
-                <v-card-actions>
+                <v-card-actions class="cus__position-bottom-right">
                   <v-btn flat color="blue" :href="article.url" target="_blank">Lire</v-btn>
                 </v-card-actions>
               </v-card>
@@ -53,4 +53,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped lang="sass">
+.cus__clear-bottom
+  padding-bottom: 65px
+
+.cus__position-bottom-right
+  position: absolute
+  bottom: 0
+  right: 0
+</style>
