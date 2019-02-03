@@ -31,13 +31,19 @@ export default {
       .get("https://newsapi.org/v2/sources", {
         params: {
           apiKey: apiKey,
-          language: "fr",
-          country: "fr"
+          // language: "fr",
+          // country: "fr"
         }
       })
       .then(res => {
         this.sourcesNames = res.data.sources.map(element => element.name);
         this.sourcesIds = res.data.sources.map(element => element.id);
+
+        // Display only the tenth first news sources
+        let numOfSources = 10
+        this.sourcesNames = this.sourcesNames.slice(0, numOfSources)
+        this.sourcesIds = this.sourcesIds.slice(0, numOfSources)
+        
       })
       .catch(err => console.error(err));
   },
