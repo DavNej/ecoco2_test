@@ -2,24 +2,17 @@
   <v-item-group>
     <v-container grid-list-md fluid>
       <v-layout wrap>
-        <v-flex
-          v-for="article in articles"
-          :key="article.id"
-          xs12
-          sm6
-          md4
-          lg3>
+        <v-flex v-for="article in articles" :key="article.id" xs12 sm6 md4 lg3>
           <v-item>
-            <v-card
-              slot-scope="{}"
-              class="d-flex fill-height align-center">
+            <v-card slot-scope="{}" class="d-flex fill-height align-center">
               <v-card class="fill-height">
-                <v-img v-if="article.urlToImage === null"
+                
+                <!-- Displays default image if no image in article -->
+                <v-img
+                  v-if="article.urlToImage === null"
                   :src="src"
                   aspect-ratio="2"/>
-                <v-img v-else
-                  :src="article.urlToImage"
-                  aspect-ratio="2"/>
+                <v-img v-else :src="article.urlToImage" aspect-ratio="2" />
 
                 <v-card-title primary-title class="cus__clear-bottom">
                   <div>
@@ -28,7 +21,9 @@
                   </div>
                 </v-card-title>
                 <v-card-actions class="cus__position-bottom-right">
-                  <v-btn flat color="blue" :href="article.url" target="_blank">Lire</v-btn>
+                  <v-btn flat color="blue" :href="article.url" target="_blank"
+                    >Lire</v-btn
+                  >
                 </v-card-actions>
               </v-card>
             </v-card>
@@ -40,20 +35,16 @@
 </template>
 
 <script>
-import axios from "axios";
-
-import { apiKey } from "@/plugins/credentials";
-
 export default {
-  name: 'articleResults',
+  name: "articleResults",
   props: {
     articles: {
       type: Array,
-      default: []
+      default: null
     }
   },
   data() {
-    return {src: require('@/assets/no-image.png')}
+    return { src: require("@/assets/no-image.png") };
   }
 };
 </script>

@@ -18,7 +18,7 @@ import axios from "axios";
 import { apiKey } from "@/plugins/credentials";
 
 export default {
-  name: 'FormSelect',
+  name: "FormSelect",
   data() {
     return {
       sourcesNames: [],
@@ -30,7 +30,7 @@ export default {
     axios
       .get("https://newsapi.org/v2/sources", {
         params: {
-          apiKey: apiKey,
+          apiKey: apiKey
           // language: "fr",
           // country: "fr"
         }
@@ -40,10 +40,9 @@ export default {
         this.sourcesIds = res.data.sources.map(element => element.id);
 
         // Display only the tenth first news sources
-        let numOfSources = 10
-        this.sourcesNames = this.sourcesNames.slice(0, numOfSources)
-        this.sourcesIds = this.sourcesIds.slice(0, numOfSources)
-        
+        let numOfSources = 10;
+        this.sourcesNames = this.sourcesNames.slice(0, numOfSources);
+        this.sourcesIds = this.sourcesIds.slice(0, numOfSources);
       })
       .catch(err => console.error(err));
   },
@@ -61,10 +60,10 @@ export default {
         })
         .then(res => {
           if (res.status === 200) {
-            this.$emit('sourceIsSelected', res.data);
+            this.$emit("sourceIsSelected", res.data);
           } else {
-            alert('Une erreur s\'est produite, veuillez réessayer')
-            console.error(res)
+            alert("Une erreur s'est produite, veuillez réessayer");
+            console.error(res);
           }
         })
         .catch(err => console.error(err));

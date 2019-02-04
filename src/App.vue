@@ -7,8 +7,8 @@
     </v-toolbar>
 
     <v-content>
-      <form-select @sourceIsSelected="getNews"/>
-      <article-results :articles="articles"/>
+      <form-select @sourceIsSelected="getNews" />
+      <article-results :articles="articles" />
     </v-content>
   </v-app>
 </template>
@@ -29,13 +29,13 @@ export default {
     };
   },
   methods: {
-    getNews: function (data) {
+    getNews: function(data) {
       let articles = data.articles.map((item, idx) => {
         var o = Object.assign({}, item);
-        o.id = idx
+        o.id = idx;
         return o;
-      })
-      this.articles = articles
+      });
+      this.articles = articles;
     }
   }
 };
